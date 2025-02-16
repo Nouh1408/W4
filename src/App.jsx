@@ -1,16 +1,21 @@
-import { useState } from 'react'
-
 import './App.css'
+import {createHashRouter, RouterProvider } from 'react-router-dom'
+import Home from './Components/Home/Home'
+import Layout from './Components/Layout/Layout'
+import About from './Components/About/About'
 
 function App() {
-  const [count, setCount] = useState(0)
+  const router = createHashRouter([
+    {path:"",element:<Layout/>,children:[
+      {index:true, element:<Home/>},
+      {path:"about",element:<About/>},
+    ]}
+  ])
 
   return (
     <>
-      <h1 className="text-3xl font-bold underline">
-      Hello world!
-    </h1>
-    </>
+    <RouterProvider router={router}/>  
+   </>
   )
 }
 
