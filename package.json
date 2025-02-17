@@ -15,6 +15,7 @@
   "dependencies": {
     "axios": "^1.7.9",
     "flowbite": "^3.1.2",
+    "formik": "^2.4.6",
     "generate-react-cli": "^8.4.9",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",

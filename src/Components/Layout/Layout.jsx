@@ -8,8 +8,10 @@ export default function Layout() {
   return (
     <>
     <Navbar/>
+    <div className='lg:max-w-screen-xl container mx-auto'>
     <Outlet/>
     <Footer/>
+    </div>
     </>
   )
 }
