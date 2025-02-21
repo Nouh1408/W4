@@ -1,22 +1,23 @@
 import React from 'react'
 import style from './Login.module.css'
 import { useFormik } from 'formik'
+import axios from 'axios'
 
 
 export default function Login() {
 
   function validation(data) {
-    const x = {}
+    const errors = {}
     if (data.email == "") {
-      x.email = "email is requireds"
+      errors.email = "email is requireds"
     } else if(/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/.test( data.email) ==false){
-      x.email ="email is invalid"
+      errors.email ="email is invalid"
     }
     if (data.password == "") {
-      x.password = "password is required"
+      errors.password = "password is required"
     }
 
-    return x
+    return errors
   }
 
   const formik = useFormik({
@@ -27,9 +28,11 @@ export default function Login() {
     onSubmit: handleLogin,
     validate: validation
   })
-  function handleLogin(values) {
-    console.log("hii", values);
+  async function handleLogin(values) {
+   console.log("hi",values)
 
+    const  {data} =await axios.post("https://ecommerce.routemisr.com/api/v1/auth/signin",values)
+    console.log(data);
   }
   return (
     <>
