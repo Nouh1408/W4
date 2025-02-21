@@ -1,6 +1,7 @@
 import React from 'react'
 import style from './Register.module.css'
 import { useFormik } from 'formik'
+import axios from 'axios';
 
 
 
@@ -15,9 +16,17 @@ export default function Register() {
       },
       onSubmit:handleregister,
         });
-        function handleregister(value){
+        async function handleregister(value){
           console.log("hiii",value);
           
+          try{
+            const {data } = await axios.post("https://ecommerce.routemisr.com/api/v1/auth/signup", value)
+            console.log(data);
+            
+          }catch(error){
+            console.log(error);
+            
+          }
         }
       
   return (
