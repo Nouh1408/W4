@@ -1,8 +1,9 @@
-import React from 'react'
-import style from './Footer.module.css'
+import React from 'react';
 
 export default function Footer() {
   return (
-    <div>Footer</div>
-  )
+    <div className="fixed bottom-0 w-1/2 text-center text-xl bg-red-400 p-14">
+      <p>&copy; {new Date().getFullYear()}</p>
+    </div>
+  );
 }
