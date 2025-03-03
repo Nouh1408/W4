@@ -12,11 +12,11 @@ export default function Register() {
     email:Yup.string().required("email iss required").email("Invalid email"),
     name:Yup.string().required("dein name ist erforderlich").min(5, "must be more than five charachters"),
     password:Yup.string().required("password is required").matches(/^[A-Z].{5,}/, "must be ....[A-Z].{5,}..."),
-    confirmPassword:"",
-    phone:""
+    confirmPassword:Yup.string().required("enter your password again").oneOf([Yup.ref("password")], "passwords must be matched"),
+    phone:Yup.string().required("enter phone numhber").matches(/^01[0125][0-9]{8}/, "should be egyptian number")
   })
 
-    function validation(data){
+   /*  function validation(data){
       const errors ={}
       if(data.email==""){
         errors.email="Email is required"
@@ -42,7 +42,7 @@ export default function Register() {
 
     return errors
 
-  }
+  } */
   const formik = useFormik({
     initialValues: {
       name: '',
@@ -52,7 +52,8 @@ export default function Register() {
       phone:''
       },
       onSubmit:handleregister,
-      validate:validation
+      // validate:validation
+      validationSchema:validationSchema
         });
         async function handleregister(value){
           console.log("hiii",value);
@@ -82,7 +83,7 @@ export default function Register() {
 
           }
   <div className="relative z-0 w-full mb-5 group">
-    <input onChange={formik.handleChange} value={formik.values.password} onBlur={formik.handleBlur} type="text" name="password" id="password" className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-black dark:border-gray-600 dark:focus:border-green-500 focus:outline-none focus:ring-0 focus:border-green-600 peer" placeholder=" "  />
+    <input onChange={formik.handleChange} value={formik.values.password} onBlur={formik.handleBlur} type="password" name="password" id="password" className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-black dark:border-gray-600 dark:focus:border-green-500 focus:outline-none focus:ring-0 focus:border-green-600 peer" placeholder=" "  />
     <label htmlFor="password" className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 peer-focus:text-green-600 peer-focus:dark:text-green-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Password</label>
   </div>
   {
@@ -92,7 +93,7 @@ export default function Register() {
 
           }
   <div className="relative z-0 w-full mb-5 group">
-    <input type="text" value={formik.values.confirmPassword} onChange={formik.handleChange} onBlur={formik.handleBlur} name="confirmPassword" id="confirmPassword" className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-black dark:border-gray-600 dark:focus:border-green-500 focus:outline-none focus:ring-0 focus:border-green-600 peer" placeholder=" "  />
+    <input type="password" value={formik.values.confirmPassword} onChange={formik.handleChange} onBlur={formik.handleBlur} name="confirmPassword" id="confirmPassword" className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-black dark:border-gray-600 dark:focus:border-green-500 focus:outline-none focus:ring-0 focus:border-green-600 peer" placeholder=" "  />
     <label htmlFor="confirmPassword" className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 peer-focus:text-green-600 peer-focus:dark:text-green-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Confirm password</label>
   </div>
   {
