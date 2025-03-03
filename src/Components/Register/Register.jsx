@@ -2,10 +2,20 @@ import React from 'react'
 import style from './Register.module.css'
 import { useFormik } from 'formik'
 import axios from 'axios';
+import * as Yup from 'yup';
 
 
 
 export default function Register() {
+
+  const validationSchema = Yup.object().shape({
+    email:Yup.string().required("email iss required").email("Invalid email"),
+    name:Yup.string().required("dein name ist erforderlich").min(5, "must be more than five charachters"),
+    password:Yup.string().required("password is required").matches(/^[A-Z].{5,}/, "must be ....[A-Z].{5,}..."),
+    confirmPassword:"",
+    phone:""
+  })
+
     function validation(data){
       const errors ={}
       if(data.email==""){
