@@ -2,11 +2,16 @@ import React from 'react'
 import style from './Login.module.css'
 import { useFormik } from 'formik'
 import axios from 'axios'
+import * as Yup from 'yup'
 
 
 export default function Login() {
 
-  function validation(data) {
+  const validationschrma =Yup.object().shape({
+    email:Yup.string().required("E-mailssss is required").email("invalid email"),
+    password:Yup.string().required("password is required").matches(/^[A-Z].{5,}/, "must be ....[A-Z].{5,}...")
+  })
+ /*  function validation(data) {
     const errors = {}
     if (data.email == "") {
       errors.email = "email is requireds"
@@ -18,7 +23,7 @@ export default function Login() {
     }
 
     return errors
-  }
+  } */
 
   const formik = useFormik({
     initialValues: {
@@ -26,7 +31,8 @@ export default function Login() {
       password: ""
     },
     onSubmit: handleLogin,
-    validate: validation
+    // validate: validation,
+    validationSchema:validationschrma
   })
   async function handleLogin(values) {
    console.log("hi",values)
@@ -63,7 +69,7 @@ export default function Login() {
 
           }
         <div className="relative z-0 w-full mb-5 group">
-          <input type="email"
+          <input type="password"
             onChange={formik.handleChange}
             onBlur={formik.handleBlur}
             value={formik.values.password}
