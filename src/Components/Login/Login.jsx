@@ -44,7 +44,7 @@ export default function Login() {
     <>
 
 
-      <form className="" onSubmit={formik.handleSubmit}>
+      <form className="w-3/4 mx-auto" onSubmit={formik.handleSubmit}>
         <h1 className='my-7 text-green-500'>Login Form</h1>
         <div className="relative z-0 w-full mb-5 group">
           <input type="email"
