@@ -1,11 +1,15 @@
-import React from 'react'
+import React,{useState} from 'react'
 import style from './Login.module.css'
 import { useFormik } from 'formik'
 import axios from 'axios'
 import * as Yup from 'yup'
+import { useNavigate } from 'react-router-dom'
 
 
 export default function Login() {
+  const navigate = useNavigate()
+  const [errorMsg, setErrorMsg] = useState("")
+  const [isLoading, setIsLoading] = useState(false)
 
   const validationschrma =Yup.object().shape({
     email:Yup.string().required("E-mailssss is required").email("invalid email"),
@@ -34,11 +38,20 @@ export default function Login() {
     // validate: validation,
     validationSchema:validationschrma
   })
-  async function handleLogin(values) {
-   console.log("hi",values)
+  async function handleLogin(LoginData) {
+  //  console.log("hi",values)
 
-    const  {data} =await axios.post("https://ecommerce.routemisr.com/api/v1/auth/signin",values)
-    console.log(data);
+    try {
+      setIsLoading(true)
+      const  {LoginData} =await axios.post("https://ecommerce.routemisr.com/api/v1/auth/signin",LoginData)
+      if(data.message =="success"){
+        navigate("/")
+      }
+    } catch (error) {
+      setErrorMsg("email or password")
+    }finally{
+      setIsLoading(false)
+    }
   }
   return (
     <>
@@ -46,6 +59,12 @@ export default function Login() {
 
       <form className="w-3/4 mx-auto" onSubmit={formik.handleSubmit}>
         <h1 className='my-7 text-green-500'>Login Form</h1>
+        {
+          errorMsg ? 
+          <div className="p-4 mb-4 text-sm text-red-800 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-red-400" role="alert">
+              {errorMsg}
+            </div>:null
+        }
         <div className="relative z-0 w-full mb-5 group">
           <input type="email"
             name="email"
@@ -63,7 +82,8 @@ export default function Login() {
           <label htmlFor="email" className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto peer-focus:text-green-600 peer-focus:dark:text-green-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Email address</label>
         </div>
         {
-            formik.errors.email && formik.touched.email && <div className="p-4 mb-4 text-sm text-red-800 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-red-400" role="alert">
+            formik.errors.email && formik.touched.email &&
+             <div className="p-4 mb-4 text-sm text-red-800 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-red-400" role="alert">
               {formik.errors.email}
             </div>
 
@@ -84,7 +104,9 @@ export default function Login() {
             </div>
 
           }
-        <button type="submit" className="text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-green-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800">Submit</button>
+        <button type="submit" className="text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-green-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800">
+          {isLoading?"loading": "Login"}
+        </button>
 
       </form>
 
