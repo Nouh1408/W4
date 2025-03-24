@@ -1,14 +1,17 @@
-import React,{useState} from 'react'
+import React,{useContext, useState} from 'react'
 import style from './Register.module.css'
 import { useFormik } from 'formik'
 import axios from 'axios';
 import * as Yup from 'yup';
 import { useNavigate } from 'react-router-dom';
 import { FaSpinner } from 'react-icons/fa';
+import { UserContext } from '../../Context/UserContext';
 
 
 
 export default function Register() {
+
+  const {setToken}= useContext(UserContext)
   const [isLoading, setisLoading] = useState(false)
   const [isError, setIsError] = useState(false)
 
@@ -73,6 +76,8 @@ export default function Register() {
               console.log("hi");
               //!token
               navigate("/");
+
+              setToken(data.token)
               }
           }catch(error){
             setIsError("email sent")

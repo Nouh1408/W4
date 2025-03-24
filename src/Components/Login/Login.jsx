@@ -5,11 +5,13 @@ import axios from 'axios'
 import * as Yup from 'yup'
 import { useNavigate } from 'react-router-dom'
 import { CounterContext } from '../../Context/CounterContext'
+import { UserContext } from '../../Context/UserContext'
 
 
 export default function Login() {
 
   const {nameOne,nameTwo, setNameOne} = useContext(CounterContext)
+  const {setToken} = useContext(UserContext)
 
   const navigate = useNavigate()
   const [errorMsg, setErrorMsg] = useState("")
@@ -50,6 +52,7 @@ export default function Login() {
       const  {LoginData} =await axios.post("https://ecommerce.routemisr.com/api/v1/auth/signin",LoginData)
       if(data.message =="success"){
         navigate("/")
+        setToken(data.token)
       }
     } catch (error) {
       setErrorMsg("email or password")
