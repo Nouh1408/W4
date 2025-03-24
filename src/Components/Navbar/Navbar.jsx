@@ -1,12 +1,17 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import style from './Navbar.module.css'
 import {Link,NavLink} from 'react-router-dom'
 import { useState } from 'react'
 import { FaFacebook, FaTwitter, FaInstagram, FaYoutube } from "react-icons/fa";
+import { CounterContext } from '../../Context/CounterContext';
 
 
 export default function Navbar() {
 
+  const val =useContext(CounterContext)
+
+  console.log(val);
+  
   const [pages, setPages] = useState([
     {text:"Home", path: "/"},
     {text:"Cart", path: "/cart"},
