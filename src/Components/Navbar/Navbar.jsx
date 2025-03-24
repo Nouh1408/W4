@@ -4,11 +4,13 @@ import {Link,NavLink} from 'react-router-dom'
 import { useState } from 'react'
 import { FaFacebook, FaTwitter, FaInstagram, FaYoutube } from "react-icons/fa";
 import { CounterContext } from '../../Context/CounterContext';
+import { UserContext } from '../../Context/UserContext';
 
 
 export default function Navbar() {
 
   const {nameOne, nameTwo} =useContext(CounterContext)
+  const {setToken, isLogin} =useContext(UserContext)
 
   console.log(nameOne, nameTwo);
   
