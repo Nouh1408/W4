@@ -1,12 +1,16 @@
-import React,{useState} from 'react'
+import React,{useContext, useState} from 'react'
 import style from './Login.module.css'
 import { useFormik } from 'formik'
 import axios from 'axios'
 import * as Yup from 'yup'
 import { useNavigate } from 'react-router-dom'
+import { CounterContext } from '../../Context/CounterContext'
 
 
 export default function Login() {
+
+  const {nameOne,nameTwo, setNameOne} = useContext(CounterContext)
+
   const navigate = useNavigate()
   const [errorMsg, setErrorMsg] = useState("")
   const [isLoading, setIsLoading] = useState(false)
@@ -58,7 +62,8 @@ export default function Login() {
 
 
       <form className="w-3/4 mx-auto" onSubmit={formik.handleSubmit}>
-        <h1 className='my-7 text-green-500'>Login Form</h1>
+        <h1 className='my-7 text-green-500'>Login Form {nameOne +" "+ nameTwo}</h1>
+        <button className='btn-green' onClick={() => setNameOne("Nouh")}>Change me</button>
         {
           errorMsg ? 
           <div className="p-4 mb-4 text-sm text-red-800 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-red-400" role="alert">

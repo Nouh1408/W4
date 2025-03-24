@@ -8,9 +8,9 @@ import { CounterContext } from '../../Context/CounterContext';
 
 export default function Navbar() {
 
-  const val =useContext(CounterContext)
+  const {nameOne, nameTwo} =useContext(CounterContext)
 
-  console.log(val);
+  console.log(nameOne, nameTwo);
   
   const [pages, setPages] = useState([
     {text:"Home", path: "/"},

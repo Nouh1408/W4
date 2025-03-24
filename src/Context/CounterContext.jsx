@@ -1,9 +1,11 @@
-import { createContext } from "react";
+import { createContext,useState } from "react";
 
 export const CounterContext = createContext();
 
 export default function CounterContextProvider({children}){
-    return <CounterContext.Provider value={{x:"ahmed",name:"mahmoud"}}>
+    const [nameOne, setNameOne] = useState("ahmed")
+    const [nameTwo, setNameTwo] = useState("Ihab")
+    return <CounterContext.Provider value={{nameOne,nameTwo,setNameOne}}>
         {children}
     </CounterContext.Provider>
 }
